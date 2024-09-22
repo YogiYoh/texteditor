@@ -1,2 +1,2 @@
-# notepad
-creating notepad from scratch 
+# Text Editor
+Creating a Text Editor from scratch using C
