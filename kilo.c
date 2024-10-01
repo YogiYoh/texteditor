@@ -17,15 +17,15 @@ void enableRaw(){
   
   struct termios raw = default_att; // Creates a COPY of default_att 
 
-
-  raw.c_lflag &= ~(ECHO | ICANON); // Edits an attribute by flipping the bits, in this case ECHO/ICANON where we will be turning it off using &= 
+  raw.c_iflag &= ~(IXON | ICRNL); // Edits INPUT attributes (determines how data coming from the keyboard is handled) by flipping bits (~) and adding them to raw struct (&=), to turn off certain signals  
+  raw.c_lflag &= ~(ECHO | ICANON | ISIG | IEXTEN); // Edits local attributes (how should the terminal behave while you're typing) by flipping the bits (~) and adding them to raw struct (&=), to turn off certain signals  
 
   tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw); // Sets custom attributes in raw into the standard input 
 }
 
 int main() {
 
-  enableRaw(); 
+  enableRaw(); // Enables raw mode in terminal
   
   char c;
   while(read(STDIN_FILENO, &c, 1) == 1 && c != 'q'){
