@@ -9,7 +9,7 @@ struct termios default_att; // struct that will store default terminal attribute
 
 void disableRaw(){
   tcsetattr(STDIN_FILENO, TCSAFLUSH, &default_att);  // Sets default attributes into standard input 
-  if(read(STDIN_FILENO, TCSAFLUSH, 1) == -1){
+  if(read(STDIN_FILENO, TCSAFLUSH, 1) == -1){ // If setting default attribute fails "-1" it will exit the program and will print the custom error message tcsetattr. 
     die("tcsetattr"); 
   }
 }
