@@ -1,3 +1,4 @@
+// Includes ------------------------------------------------------------
 #include <unistd.h>
 #include <termios.h>
 #include <stdlib.h>  
@@ -5,8 +6,10 @@
 #include <stdio.h>
 #include <errno.h> 
 
+// Data ------------------------------------------------------------
 struct termios default_att; // struct that will store default terminal attributes 
 
+// Terminal (Place where we modify the terminal) ------------------------------------------------------------------------------------------
 void disableRaw(){
   tcsetattr(STDIN_FILENO, TCSAFLUSH, &default_att);  // Sets default attributes into standard input 
   if(read(STDIN_FILENO, TCSAFLUSH, 1) == -1){ // If setting default attribute fails "-1" it will exit the program and will print the custom error message tcsetattr. 
@@ -42,7 +45,7 @@ void enableRaw(){
     die("tcsetattr");
   } 
 }
-
+// Main Function ---------------------------------------------------------------------------------------------------------------------------------------
 int main() {
 
   enableRaw(); // Enables raw mode in terminal
